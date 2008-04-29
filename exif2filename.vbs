@@ -28,7 +28,7 @@ If WScript.Arguments.Named.Exists("makefolders") Then
 End If
 
 If WScript.Arguments.Named.Exists("changefiletime") Then
-	makefolders = WScript.Arguments.Named("changefiletime")
+	changefiletime = WScript.Arguments.Named("changefiletime")
 End If
 
 Set objDialog = CreateObject("UserAccounts.CommonDialog")
