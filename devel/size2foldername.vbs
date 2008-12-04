@@ -17,11 +17,11 @@ dim level, worklevel
 dim sh
 
 'put the name of the directory you wish to find the size of here
-strDirName="C:\daten_lokal\iso\fime"
+strDirName="C:\daten_lokal\iso\filme"
 strDirName=WScript.Arguments(0)
 
 worklevel=WScript.Arguments(1)
-debug = 1
+debug = 0
 
 dim asdf
 
