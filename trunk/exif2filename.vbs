@@ -8,6 +8,7 @@ public debug
 public msg, filetimetoken(6)
 public makefolders
 public changefiletime
+public strSourcefolderpath
 
 CONST SPACER = "_"
 CONST SPACERBETWEEN = "-"
@@ -31,20 +32,7 @@ If WScript.Arguments.Named.Exists("changefiletime") Then
 	changefiletime = WScript.Arguments.Named("changefiletime")
 End If
 
-Set objDialog = CreateObject("UserAccounts.CommonDialog")
-
-objDialog.Filter = "BILDORDNER auswählen, die sortiert werden sollen|*.*"
-objDialog.FilterIndex = 1
-'objDialog.InitialDir = GET_SCRIPT_Verzeichnis
-objDialog.InitialDir = "C:\Data\media\_DigiCam Events\events_2007"
-
-intResult = objDialog.ShowOpen
- 
-If intResult = 0 Then
-   	strSourcefolderpath = GET_SCRIPT_Verzeichnis & "\"
-Else
-	strSourcefolderpath = dirname(objDialog.FileName) & "\"
-End If
+strSourcefolderpath = wscript.arguments(0)
 	
 msg = "Ordner: " & strSourcefolderpath & vbCRLF & vbCRLF
 	
@@ -220,7 +208,7 @@ Function getexif (filename, key)
 	
 	objName = objFSO.GetTempName
 	objTempFile = env("tmp") & "\" & objName
-	prog = "%comspec% /C "" """ & rundirname & "exiv2.exe"" """ & filename & """ | " & _
+	prog = "%comspec% /C "" """ & rundirname & "exiv2.exe"" """ & strSourcefolderpath & filename & """ | " & _
  		"find /I """ & key & """ >" & objTempFile & """"
 
 		wscript.echo prog
