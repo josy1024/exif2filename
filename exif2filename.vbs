@@ -15,7 +15,7 @@ CONST SPACERBETWEEN = "-"
 
 ' makefolder paramter 0 or 1 =>
 'make folders with dayname
-makefolders = 1
+makefolders = 0
 changefiletime = 0
 
 debug = 1
@@ -32,13 +32,22 @@ If WScript.Arguments.Named.Exists("changefiletime") Then
 	changefiletime = WScript.Arguments.Named("changefiletime")
 End If
 
-strSourcefolderpath = wscript.arguments(0)
+strSourcefolderpath = verifypath(wscript.arguments(0))
 	
 msg = "Ordner: " & strSourcefolderpath & vbCRLF & vbCRLF
 	
 foldersorter strSourcefolderpath
 
 wscript.echo msg
+
+function verifypath (folder)
+
+	if (Right(folder,1) <> "\") then
+		verifypath = folder & "\"
+	else
+		verifypath = folder
+	end if
+end function
 
 function foldersorter (strSourcefolderpath)
 
@@ -104,11 +113,13 @@ function foldersorter (strSourcefolderpath)
 			on error resume next
 		  	oFileSource.Move renameto
 			
-			if err.number <> 0 then 
+		   if err.number = 58 then
+		   ' datei bereits vorhanden error exception
+				oFileSource.Delete
+			elseif err.number <> 0 then 
 				msgbox  err.number  &  err.description & renameto
 				err.clear
 			end if
-			
 		End If
 	  Next
 
