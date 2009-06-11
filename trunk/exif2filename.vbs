@@ -85,7 +85,7 @@ function foldersorter (strSourcefolderpath)
 	  	if debug > 2 Then wscript.echo "For each oFileSource: " & oFileSource.Name
 	  	
 '	  	If (Len (oFileSource.name) > 4) AND ((UCASE(Right(oFileSource.Name,3)) = "JPG") OR (Right(oFileSource.Name,3) = "AVI"))  Then
-	  	If (Len (oFileSource.name) > 4) AND ((UCASE(Right(oFileSource.Name,3)) = "JPG")) Then
+	  	If (Len (oFileSource.name) > 4) AND ((UCASE(Right(oFileSource.Name,3)) = "JPG") OR (UCASE(Right(oFileSource.Name,3)) = "JPE") ) Then
 	  		
 			renameto = renamer(oFileSource.Name)
 
