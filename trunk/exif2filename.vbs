@@ -188,6 +188,7 @@ end function
 
 
 function correcttime (filename, y, m, d, h, n, s)
+' http://www.vbarchiv.net/commands/cmd_dateadd.html
 	dim checkfile
 	dim datevar
 	
@@ -196,10 +197,14 @@ function correcttime (filename, y, m, d, h, n, s)
 		
 	if (instr(checkfile, "xxxxxxcimg") > 0) then
 		datevar = DateAdd("h", -2, d & "." & m & "." & y & " " & h & ":" & n & ":" & s)
-	elseif (instr(checkfile, "img_") > 0) then
-	
-		datevar = DateAdd("h", -1, d & "." & m & "." & y & " " & h & ":" & n & ":" & s)
-		datevar = DateAdd("n", -10, datevar)
+	elseif (instr(checkfile, "pict") > 0) then
+	'h=stunde
+	'n=minute
+		datevar = DateAdd("h", 0, d & "." & m & "." & y & " " & h & ":" & n & ":" & s)
+		datevar = DateAdd("d", +964, datevar)
+		datevar = DateAdd("h", +4, datevar)
+		datevar = DateAdd("n", +48, datevar)
+		wscript.echo "pict: " &  datevar
 	else
 		datevar = DateAdd("h", 0, d & "." & m & "." & y & " " & h & ":" & n & ":" & s)
 	end if
