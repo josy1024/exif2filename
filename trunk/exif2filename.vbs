@@ -227,7 +227,7 @@ Function getexif (filename, key)
 	prog = "%comspec% /C "" """ & rundirname & "exiv2.exe"" """ & strSourcefolderpath & filename & """ | " & _
  		"find /I """ & key & """ >" & objTempFile & """"
 
-		wscript.echo prog
+	if debug > 1 Then wscript.echo prog
 	
 	sh.Run prog, 0, True
 	
