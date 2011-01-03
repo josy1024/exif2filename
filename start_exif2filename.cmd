@@ -4,7 +4,7 @@ REM GET PRESET IF NOT FOUND
 if not exist %CONFIG% cp defaults\%CONFIG% .
 
 REM CALL DEFAULT CONFIG:
-REM @call defaults\%CONFIG%
+@call defaults\%CONFIG%
 
 REM CUSTOM CONFIGER BASEDIR
 @if exist "%CONFIG%" call "%CONFIG%"
