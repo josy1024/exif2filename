@@ -26,10 +26,13 @@ End If
 
 If WScript.Arguments.Named.Exists("makefolders") Then
 	makefolders = WScript.Arguments.Named("makefolders")
+	if makefolders = "" then makefolders = 0
 End If
 
 If WScript.Arguments.Named.Exists("changefiletime") Then
 	changefiletime = WScript.Arguments.Named("changefiletime")
+	if changefiletime = "" then changefiletime  = 0
+	
 End If
 
 strSourcefolderpath = verifypath(wscript.arguments(0))
