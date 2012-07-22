@@ -11,6 +11,10 @@ public changefiletime
 public strSourcefolderpath
 
 CONST SPACER = "_"
+
+' anpassungen, damit die ordernamen so wie zu google picasa passen 2012-07-22_TOURX bzw 2012_07_22_TOURX
+CONST SPACERFOLDER = "-"
+
 CONST SPACERBETWEEN = "-"
 
 ' makefolder paramter 0 or 1 =>
@@ -18,7 +22,8 @@ CONST SPACERBETWEEN = "-"
 makefolders = 0
 changefiletime = 0
 
-debug = 1
+' debug = 1
+debug = 0
 
 If WScript.Arguments.Named.Exists("debug") Then
 	debug = WScript.Arguments.Named("debug")
@@ -41,7 +46,7 @@ msg = "Ordner: " & strSourcefolderpath & vbCRLF & vbCRLF
 	
 foldersorter strSourcefolderpath
 
-wscript.echo msg
+if debug > 1 then wscript.echo msg
 
 function verifypath (folder)
 
@@ -95,12 +100,23 @@ function foldersorter (strSourcefolderpath)
 			if makefolders = 1 then
 				targetpath = filetimetoken(1) & SPACER & filetimetoken(2) & SPACER & filetimetoken(3)
 				
+				'SPACERFOLDER
 				if debug > 2 Then wscript.echo "such target: " & strSourcefolderpath & targetpath
 				
 				targetpath = suchfolder2(strSourcefolderpath & targetpath)
-				
 				if debug > 2 Then wscript.echo "create target: " & targetpath
+
+				if Not oFSO.FolderExists(targetpath) then
+					targetpath = filetimetoken(1) & SPACERFOLDER & filetimetoken(2) & SPACERFOLDER & filetimetoken(3)
+					'SPACERFOLDER
+					if debug > 2 Then wscript.echo "such target: " & strSourcefolderpath & targetpath
+					targetpath = suchfolder2(strSourcefolderpath & targetpath)
+
+				end if
+								
 				if Not oFSO.FolderExists(targetpath) Then oFSO.CreateFolder (targetpath)
+				
+				
 				renameto = targetpath & "\" & renameto
 			else
 				' 2007_02_25-15_03_23-cimg2839745.jpg
